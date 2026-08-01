@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Badge } from './Badge';
-import { CheckCircle2, AlertTriangle, ShieldCheck } from '@myds/icons';
+import { CheckCircle2, AlertTriangle } from '@myds/icons';
 
 const meta: Meta<typeof Badge> = {
   title: 'Components/Badge',
