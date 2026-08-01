@@ -61,35 +61,42 @@ StyleDictionary.registerFormat({
 // ─────────────────────────────────────────────
 // Build Configuration
 // ─────────────────────────────────────────────
-const sd = new StyleDictionary({
-  source: ['src/**/*.json'],
-  platforms: {
-    css: {
-      transformGroup: 'css',
-      buildPath: 'dist/',
-      files: [
-        {
-          destination: 'variables.css',
-          format: 'css/custom-variables',
-        },
-      ],
+async function build() {
+  const sd = new StyleDictionary({
+    source: ['src/**/*.json'],
+    platforms: {
+      css: {
+        transformGroup: 'css',
+        buildPath: 'build/',
+        files: [
+          {
+            destination: 'variables.css',
+            format: 'css/custom-variables',
+          },
+        ],
+      },
+      ts: {
+        transformGroup: 'js',
+        buildPath: 'src/generated/',
+        files: [
+          {
+            destination: 'tokens.ts',
+            format: 'typescript/constants',
+          },
+          {
+            destination: 'css-vars.ts',
+            format: 'typescript/css-vars',
+          },
+        ],
+      },
     },
-    ts: {
-      transformGroup: 'js',
-      buildPath: 'src/generated/',
-      files: [
-        {
-          destination: 'tokens.ts',
-          format: 'typescript/constants',
-        },
-        {
-          destination: 'css-vars.ts',
-          format: 'typescript/css-vars',
-        },
-      ],
-    },
-  },
-});
+  });
 
-await sd.buildAllPlatforms();
-console.log('✅ Design tokens built successfully!');
+  await sd.buildAllPlatforms();
+  console.log('✅ Design tokens built successfully!');
+}
+
+build().catch((err) => {
+  console.error('❌ Token build failed:', err);
+  process.exit(1);
+});

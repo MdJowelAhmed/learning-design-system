@@ -7,17 +7,22 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     },
-    "./css": "./dist/variables.css"
+    "./css": "./build/variables.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "build"
+  ],
   "sideEffects": false,
   "scripts": {
-    "build": "node --loader ts-node/esm sd.config.ts && tsup",
-    "clean": "rm -rf dist",
+    "build:tokens": "tsx sd.config.ts",
+    "build:bundle": "tsup",
+    "build": "npm run build:tokens && npm run build:bundle",
+    "clean": "rm -rf dist build",
     "type-check": "tsc --noEmit",
     "lint": "eslint src/"
   },
@@ -25,7 +30,7 @@
     "@myds/eslint-config": "workspace:*",
     "@myds/typescript-config": "workspace:*",
     "style-dictionary": "^4.2.0",
-    "ts-node": "^10.9.0",
+    "tsx": "^4.19.0",
     "tsup": "^8.3.0",
     "typescript": "^5.6.0"
   }

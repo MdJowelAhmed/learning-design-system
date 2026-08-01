@@ -55,7 +55,7 @@ export function handleKeyboardActivation(
 /**
  * Creates a visually hidden style object for screen-reader-only content.
  */
-export const visuallyHidden: React.CSSProperties = {
+export const visuallyHidden = {
   position: 'absolute',
   width: '1px',
   height: '1px',
