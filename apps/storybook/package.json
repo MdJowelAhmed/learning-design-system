@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "storybook build",
+    "chromatic": "chromatic --project-token=chpt_1e09b785ea9d77e",
     "clean": "rm -rf storybook-static"
   },
   "dependencies": {
