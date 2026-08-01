@@ -1,0 +1,32 @@
+{
+  "name": "@myds/tokens",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./css": "./dist/variables.css"
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "node --loader ts-node/esm sd.config.ts && tsup",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src/"
+  },
+  "devDependencies": {
+    "@myds/eslint-config": "workspace:*",
+    "@myds/typescript-config": "workspace:*",
+    "style-dictionary": "^4.2.0",
+    "ts-node": "^10.9.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0"
+  }
+}
