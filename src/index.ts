@@ -4,8 +4,8 @@
 
 // Components & UI Elements
 export * from './components';
-// Explicit re-export to resolve Badge collision with Lucide React's Badge icon
-export { Badge } from './components';
+// Explicit re-exports to resolve UI component vs icon collisions
+export { Badge, Table, Sheet } from './components';
 
 // Design Tokens & System Constants
 export * from './tokens';

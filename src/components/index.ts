@@ -15,7 +15,7 @@ export * from './card';
 export * from './alert';
 export * from './separator';
 
-// Advanced Components
+// Advanced & Complex Components
 export * from './dialog';
 export * from './tooltip';
 export * from './dropdown-menu';
@@ -24,3 +24,15 @@ export * from './accordion';
 export * from './toast';
 export * from './form';
 export * from './motion';
+
+// Enterprise Components
+export * from './skeleton';
+export * from './progress';
+export * from './table';
+export * from './sheet';
+export * from './hover-card';
+export * from './slider';
+export * from './toggle';
+export * from './breadcrumb';
+export * from './pagination';
+export * from './popover';

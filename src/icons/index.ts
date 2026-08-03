@@ -7,6 +7,7 @@ export {
   CheckCircle2,
   ChevronDown,
   ChevronRight,
+  ChevronLeft,
   Circle,
   Info,
   Loader2,
@@ -20,6 +21,7 @@ export {
   Search,
   Lock,
   ArrowRight,
+  MoreHorizontal,
 } from 'lucide-react';
 
 export * from 'lucide-react';
