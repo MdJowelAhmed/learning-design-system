@@ -127,6 +127,16 @@
       "types": "./dist/toast.d.ts",
       "import": "./dist/toast.mjs",
       "require": "./dist/toast.js"
+    },
+    "./form": {
+      "types": "./dist/form.d.ts",
+      "import": "./dist/form.mjs",
+      "require": "./dist/form.js"
+    },
+    "./motion": {
+      "types": "./dist/motion.d.ts",
+      "import": "./dist/motion.mjs",
+      "require": "./dist/motion.js"
     }
   },
   "files": [
@@ -151,6 +161,7 @@
     ]
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-checkbox": "^1.1.0",
@@ -172,10 +183,13 @@
     "@radix-ui/react-tooltip": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "framer-motion": "^11.15.0",
     "lucide-react": "^0.460.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwind-merge": "^2.6.0"
+    "react-hook-form": "^7.54.0",
+    "tailwind-merge": "^2.6.0",
+    "zod": "^3.24.0"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^8.4.0",

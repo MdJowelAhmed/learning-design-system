@@ -1,6 +1,6 @@
 'use client';
 
-import {
+import React, {
   createContext,
   useCallback,
   useContext,
@@ -8,47 +8,48 @@ import {
   useMemo,
   useState,
 } from 'react';
-import type { ReactNode } from 'react';
 
-// ─────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────
 export type Theme = 'light' | 'dark' | 'system';
 export type ResolvedTheme = 'light' | 'dark';
 
+export type BrandColor =
+  'indigo' | 'emerald' | 'violet' | 'rose' | 'amber' | 'blue' | 'cyan' | 'zinc';
+
+export const brandPalettes: Record<
+  BrandColor,
+  { primary: string; hover: string; ring: string }
+> = {
+  indigo: { primary: '#6366f1', hover: '#4f46e5', ring: '#a5b4fc' },
+  emerald: { primary: '#10b981', hover: '#059669', ring: '#6ee7b7' },
+  violet: { primary: '#8b5cf6', hover: '#7c3aed', ring: '#c4b5fd' },
+  rose: { primary: '#f43f5e', hover: '#e11d48', ring: '#fca5a5' },
+  amber: { primary: '#f59e0b', hover: '#d97706', ring: '#fde68a' },
+  blue: { primary: '#3b82f6', hover: '#2563eb', ring: '#93c5fd' },
+  cyan: { primary: '#06b6d4', hover: '#0891b2', ring: '#67e8f9' },
+  zinc: { primary: '#18181b', hover: '#09090b', ring: '#a1a1aa' },
+};
+
 export interface ThemeContextValue {
-  /** Current theme setting (may be 'system') */
   theme: Theme;
-  /** The actual resolved theme after system preference */
   resolvedTheme: ResolvedTheme;
-  /** Set the theme */
+  brandColor: BrandColor;
   setTheme: (theme: Theme) => void;
-  /** Toggle between light and dark */
+  setBrandColor: (color: BrandColor) => void;
   toggleTheme: () => void;
 }
 
 export interface ThemeProviderProps {
-  children: ReactNode;
-  /** Default theme on first load */
+  children: React.ReactNode;
   defaultTheme?: Theme;
-  /** localStorage key for persistence */
+  defaultBrandColor?: BrandColor;
   storageKey?: string;
-  /** HTML attribute to set on document element */
   attribute?: string;
-  /** Force a specific theme (disables user selection) */
   forcedTheme?: ResolvedTheme;
-  /** Disable system theme detection */
   disableSystemTheme?: boolean;
 }
 
-// ─────────────────────────────────────────────
-// Context
-// ─────────────────────────────────────────────
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-// ─────────────────────────────────────────────
-// Helpers
-// ─────────────────────────────────────────────
 function getSystemTheme(): ResolvedTheme {
   if (typeof window === 'undefined') return 'light';
   return window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -69,12 +70,10 @@ function getStoredTheme(key: string): Theme | null {
   return null;
 }
 
-// ─────────────────────────────────────────────
-// Provider
-// ─────────────────────────────────────────────
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
+  defaultBrandColor = 'indigo',
   storageKey = 'myds-theme',
   attribute = 'data-theme',
   forcedTheme,
@@ -84,25 +83,31 @@ export function ThemeProvider({
     return getStoredTheme(storageKey) ?? defaultTheme;
   });
 
+  const [brandColor, setBrandColorState] =
+    useState<BrandColor>(defaultBrandColor);
   const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemTheme);
 
-  // Resolve the actual theme
   const resolvedTheme: ResolvedTheme = useMemo(() => {
     if (forcedTheme) return forcedTheme;
     if (theme === 'system' && !disableSystemTheme) return systemTheme;
     return theme === 'system' ? 'light' : theme;
   }, [theme, systemTheme, forcedTheme, disableSystemTheme]);
 
-  // Apply theme to DOM
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute(attribute, resolvedTheme);
     root.classList.remove('light', 'dark');
     root.classList.add(resolvedTheme);
     root.style.colorScheme = resolvedTheme;
-  }, [resolvedTheme, attribute]);
 
-  // Listen for system theme changes
+    const palette = brandPalettes[brandColor];
+    if (palette) {
+      root.style.setProperty('--ds-color-primary', palette.primary);
+      root.style.setProperty('--ds-color-primary-hover', palette.hover);
+      root.style.setProperty('--ds-color-ring', palette.ring);
+    }
+  }, [resolvedTheme, brandColor, attribute]);
+
   useEffect(() => {
     if (disableSystemTheme) return;
 
@@ -114,7 +119,6 @@ export function ThemeProvider({
     return () => media.removeEventListener('change', handler);
   }, [disableSystemTheme]);
 
-  // Persist theme choice
   const setTheme = useCallback(
     (newTheme: Theme) => {
       setThemeState(newTheme);
@@ -127,13 +131,24 @@ export function ThemeProvider({
     [storageKey],
   );
 
+  const setBrandColor = useCallback((color: BrandColor) => {
+    setBrandColorState(color);
+  }, []);
+
   const toggleTheme = useCallback(() => {
     setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
   }, [resolvedTheme, setTheme]);
 
   const value = useMemo<ThemeContextValue>(
-    () => ({ theme, resolvedTheme, setTheme, toggleTheme }),
-    [theme, resolvedTheme, setTheme, toggleTheme],
+    () => ({
+      theme,
+      resolvedTheme,
+      brandColor,
+      setTheme,
+      setBrandColor,
+      toggleTheme,
+    }),
+    [theme, resolvedTheme, brandColor, setTheme, setBrandColor, toggleTheme],
   );
 
   return (
@@ -141,9 +156,6 @@ export function ThemeProvider({
   );
 }
 
-// ─────────────────────────────────────────────
-// Hook
-// ─────────────────────────────────────────────
 export function useTheme(): ThemeContextValue {
   const context = useContext(ThemeContext);
   if (!context) {

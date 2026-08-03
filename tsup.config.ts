@@ -28,12 +28,23 @@ export default defineConfig({
     tabs: 'src/components/tabs/index.ts',
     accordion: 'src/components/accordion/index.ts',
     toast: 'src/components/toast/index.ts',
+    form: 'src/components/form/index.ts',
+    motion: 'src/components/motion/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,
   sourcemap: true,
   clean: true,
-  external: ['react', 'react-dom', 'tailwindcss', 'lucide-react'],
+  external: [
+    'react',
+    'react-dom',
+    'tailwindcss',
+    'lucide-react',
+    'framer-motion',
+    'react-hook-form',
+    'zod',
+    '@hookform/resolvers',
+  ],
   onSuccess: async () => {
     if (!existsSync('dist')) {
       mkdirSync('dist', { recursive: true });
