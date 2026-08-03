@@ -18,13 +18,7 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@myds/tokens": ["src/tokens"],
-      "@myds/theme": ["src/theme"],
-      "@myds/icons": ["src/icons"],
-      "@myds/hooks": ["src/hooks"],
-      "@myds/utils": ["src/utils"],
-      "@myds/ui": ["src/components"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src/**/*", ".storybook/**/*"],
