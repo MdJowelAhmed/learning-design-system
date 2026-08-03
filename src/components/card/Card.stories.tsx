@@ -28,7 +28,7 @@ export const Default: Story = {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+        <p className="text-sm text-neutral-800 dark:text-neutral-200">
           By continuing, you agree to our terms of service and privacy policy.
         </p>
       </CardContent>

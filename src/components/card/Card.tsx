@@ -21,7 +21,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={cn(
-          'overflow-hidden rounded-2xl bg-white text-neutral-900 shadow-sm transition-all duration-200 dark:bg-neutral-900 dark:text-neutral-100',
+          'overflow-hidden rounded-2xl bg-white text-neutral-900 shadow-sm transition-all duration-200 dark:bg-neutral-900 dark:text-neutral-50',
           bordered && 'border border-neutral-200 dark:border-neutral-800',
           hoverable && 'cursor-pointer hover:-translate-y-0.5 hover:shadow-md',
           padding === 'sm' && 'p-4',
@@ -58,7 +58,7 @@ export const CardTitle = forwardRef<
   <h3
     ref={ref}
     className={cn(
-      'font-heading text-lg leading-none font-semibold text-neutral-900 dark:text-neutral-100',
+      'font-heading text-lg leading-none font-semibold text-neutral-900 dark:text-neutral-50',
       className,
     )}
     {...props}
@@ -72,7 +72,7 @@ export const CardDescription = forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('text-sm text-neutral-500 dark:text-neutral-400', className)}
+    className={cn('text-sm text-neutral-600 dark:text-neutral-300', className)}
     {...props}
   />
 ));
@@ -84,7 +84,7 @@ export const CardContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('text-sm text-neutral-700 dark:text-neutral-300', className)}
+    className={cn('text-sm text-neutral-800 dark:text-neutral-200', className)}
     {...props}
   />
 ));
@@ -97,7 +97,7 @@ export const CardFooter = forwardRef<
   <div
     ref={ref}
     className={cn(
-      'mt-6 flex items-center justify-between border-t border-neutral-100 pt-4 dark:border-neutral-800',
+      'mt-6 flex items-center justify-between border-t border-neutral-200 pt-4 dark:border-neutral-800',
       className,
     )}
     {...props}
