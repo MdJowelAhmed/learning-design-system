@@ -58,14 +58,14 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
               <label
                 htmlFor={id}
                 className={cn(
-                  'cursor-pointer text-sm font-medium text-neutral-800 select-none dark:text-neutral-200',
+                  'cursor-pointer text-sm font-medium text-neutral-900 select-none dark:text-neutral-50',
                   disabled && 'cursor-not-allowed opacity-60',
                 )}
               >
                 {label}
               </label>
               {description && (
-                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400">
                   {description}
                 </p>
               )}

@@ -34,7 +34,7 @@ export const AccordionTrigger = forwardRef<
       {...props}
     >
       {children}
-      <ChevronDown className="h-4 w-4 shrink-0 text-neutral-500 transition-transform duration-200 dark:text-neutral-400" />
+      <ChevronDown className="h-4 w-4 shrink-0 text-neutral-600 transition-transform duration-200 dark:text-neutral-400" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));
@@ -47,7 +47,7 @@ export const AccordionContent = forwardRef<
   <AccordionPrimitive.Content
     ref={ref}
     className={cn(
-      'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm text-neutral-600 transition-all dark:text-neutral-400',
+      'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm text-neutral-700 transition-all dark:text-neutral-300',
       className,
     )}
     {...props}
