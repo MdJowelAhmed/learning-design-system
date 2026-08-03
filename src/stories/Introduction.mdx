@@ -4,21 +4,33 @@ import { Meta } from '@storybook/blocks';
 
 # 🎨 Enterprise Design System
 
-Welcome to the official component library and documentation hub.
+Welcome to the official component library and interactive documentation hub for **`my-design-system`**.
 
 ## 🚀 Key Features
 
-- **Monorepo Architecture:** Powered by Turborepo and pnpm workspaces
-- **Design Tokens:** Style Dictionary v4 generating DTCG-compliant CSS Variables and TypeScript constants
-- **Accessibility:** Full WAI-ARIA compliant keyboard navigation and screen reader support
-- **Theme Support:** Native Light/Dark mode with automatic system preference detection
-- **Component Standard:** Built with React 19, TypeScript strict mode, CVA, and Tailwind CSS v4
+- **Single Repository Architecture:** Unified single package structure powered by `tsup`, `vitest`, and `storybook`.
+- **Subpath Export Optimization:** High-performance modular subpath imports (`my-design-system/button`, `my-design-system/form`, `my-design-system/motion`, etc.) for minimal bundle sizes.
+- **Form & Validation Primitives:** Seamless `react-hook-form` + `zod` schema validation integration.
+- **Motion & Micro-Animations:** Fluid spring physics animations powered by `framer-motion`.
+- **Dynamic Brand Colors:** 8 curated brand accent palettes (`indigo`, `emerald`, `violet`, `rose`, `amber`, `blue`, `cyan`, `zinc`).
+- **Design Tokens:** Style Dictionary v4 generating DTCG-compliant CSS Variables and TypeScript constants.
+- **Accessibility:** Full WAI-ARIA compliant keyboard navigation and screen reader support.
+- **Theme Engine:** Native Light/Dark mode with dynamic brand accent customization.
 
-## 📦 Packages
+## 📦 Modular Subpath Imports
 
-- `@myds/ui` — Core UI components
-- `@myds/tokens` — Design token system
-- `@myds/theme` — Theme provider & hooks
-- `@myds/hooks` — Shared React hooks
-- `@myds/utils` — Utilities (cn, a11y helpers)
-- `@myds/icons` — Icon system (Lucide React)
+- `my-design-system` — Full root exports barrel
+- `my-design-system/button` — Core Button component
+- `my-design-system/dialog` — Accessible Modal / Dialog
+- `my-design-system/form` — Form & FormField primitives (`react-hook-form` + `zod`)
+- `my-design-system/motion` — Framer Motion primitives (`FadeIn`, `SlideIn`, `ScaleIn`)
+- `my-design-system/toast` — Toast notification system & `useToast()` hook
+- `my-design-system/tabs` — Tab switcher component
+- `my-design-system/accordion` — Expandable FAQ Accordion
+- `my-design-system/tooltip` — Hover/Focus Tooltips
+- `my-design-system/dropdown-menu` — Popover Dropdown Menu
+- `my-design-system/theme` — `ThemeProvider`, `ThemeCustomizer` & `useTheme()` hook
+- `my-design-system/tokens` — Style Dictionary Tokens & CSS Variables
+- `my-design-system/hooks` — Shared React Hooks
+- `my-design-system/utils` — Helper functions (`cn`, a11y helpers)
+- `my-design-system/icons` — Lucide React Icon System
