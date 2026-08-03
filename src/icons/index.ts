@@ -1,12 +1,25 @@
 /**
- * @myds/icons
- *
- * Re-exports Lucide React icons and provides a consistent API
- * for adding custom icons to the design system.
+ * Icon System — Re-exports Lucide React icons
  */
 
-// Re-export all Lucide icons for tree-shaking
-export * from 'lucide-react';
+export {
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  Circle,
+  Info,
+  Loader2,
+  Minus,
+  User,
+  X,
+  XCircle,
+  AlertTriangle,
+  Mail,
+  Plus,
+  Search,
+  Lock,
+  ArrowRight,
+} from 'lucide-react';
 
-// Custom icon components will be added here:
-// export { CustomIcon } from './custom/CustomIcon';
+export * from 'lucide-react';
