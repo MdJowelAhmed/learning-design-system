@@ -40,17 +40,31 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading ? (
           <>
-            <Loader2
-              className="h-4 w-4 shrink-0 animate-spin text-current"
-              aria-hidden="true"
-            />
-            <span>{loadingText ?? children}</span>
+            <Loader2 className="shrink-0 animate-spin" aria-hidden="true" />
+            {loadingText ? (
+              <span>{loadingText}</span>
+            ) : (
+              children && <span>{children}</span>
+            )}
           </>
         ) : (
           <>
-            {leftIcon && <span className="shrink-0">{leftIcon}</span>}
-            {children}
-            {rightIcon && <span className="shrink-0">{rightIcon}</span>}
+            {leftIcon && (
+              <span className="inline-flex shrink-0 items-center justify-center">
+                {leftIcon}
+              </span>
+            )}
+            {children &&
+              (typeof children === 'string' || typeof children === 'number' ? (
+                <span>{children}</span>
+              ) : (
+                children
+              ))}
+            {rightIcon && (
+              <span className="inline-flex shrink-0 items-center justify-center">
+                {rightIcon}
+              </span>
+            )}
           </>
         )}
       </Component>

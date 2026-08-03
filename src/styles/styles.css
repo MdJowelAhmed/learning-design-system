@@ -1,4 +1,4 @@
-/* Core Design System Styles */
+@import 'tailwindcss';
 @import '../tokens/build/variables.css';
 
 :root {
