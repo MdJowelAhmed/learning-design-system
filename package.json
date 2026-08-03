@@ -152,6 +152,8 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint src/",
     "test": "vitest run",
+    "test:visual": "playwright test",
+    "chromatic": "chromatic",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "clean": "rm -rf dist storybook-static node_modules"
   },
@@ -192,6 +194,7 @@
     "zod": "^3.24.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.0",
     "@storybook/addon-a11y": "^8.4.0",
     "@storybook/addon-essentials": "^8.4.0",
     "@storybook/addon-interactions": "^8.4.0",
@@ -201,14 +204,14 @@
     "@storybook/react": "^8.4.0",
     "@storybook/react-vite": "^8.4.0",
     "@storybook/test": "^8.4.0",
-    "@tailwindcss/vite": "^4.3.3",
+    "@tailwindcss/vite": "^4.0.0",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.1.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.65.0",
-    "@typescript-eslint/parser": "^8.65.0",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
     "chromatic": "^11.0.0",
     "eslint": "^9.0.0",
     "husky": "^9.1.0",
@@ -222,7 +225,7 @@
     "tsup": "^8.3.0",
     "tsx": "^4.19.0",
     "typescript": "^5.6.0",
-    "typescript-eslint": "^8.65.0",
+    "typescript-eslint": "^8.24.0",
     "vitest": "^2.1.0"
   },
   "peerDependencies": {
