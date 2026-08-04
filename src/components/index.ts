@@ -39,3 +39,4 @@ export * from './toggle';
 export * from './breadcrumb';
 export * from './pagination';
 export * from './popover';
+export * from './date-picker';

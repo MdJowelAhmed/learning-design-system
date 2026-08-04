@@ -40,6 +40,7 @@ export default defineConfig({
     breadcrumb: 'src/components/breadcrumb/index.ts',
     pagination: 'src/components/pagination/index.ts',
     popover: 'src/components/popover/index.ts',
+    'date-picker': 'src/components/date-picker/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

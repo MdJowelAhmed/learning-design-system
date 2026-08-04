@@ -187,6 +187,11 @@
       "types": "./dist/popover.d.ts",
       "import": "./dist/popover.mjs",
       "require": "./dist/popover.js"
+    },
+    "./date-picker": {
+      "types": "./dist/date-picker.d.ts",
+      "import": "./dist/date-picker.mjs",
+      "require": "./dist/date-picker.js"
     }
   },
   "files": [
@@ -237,6 +242,7 @@
     "@radix-ui/react-tooltip": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "date-fns": "^4.4.0",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.460.0",
     "react": "^19.0.0",
