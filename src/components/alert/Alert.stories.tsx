@@ -42,7 +42,7 @@ export const DangerAlert: Story = {
     title: 'Deployment Failed',
     children: 'Check your build logs for detailed error tracebacks.',
     action: (
-      <Button size="xs" variant="danger">
+      <Button size="xs" color="danger">
         Retry Deployment
       </Button>
     ),

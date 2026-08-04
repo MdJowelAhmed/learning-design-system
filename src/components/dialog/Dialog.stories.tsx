@@ -23,7 +23,7 @@ export const Default: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="primary">Open Dialog</Button>
+        <Button color="primary">Open Dialog</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -39,7 +39,7 @@ export const Default: Story = {
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button variant="primary">Save Changes</Button>
+          <Button color="primary">Save Changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

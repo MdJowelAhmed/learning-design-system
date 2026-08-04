@@ -8,7 +8,7 @@ const ToastDemo = () => {
   return (
     <div className="flex flex-wrap gap-3">
       <Button
-        variant="primary"
+        color="primary"
         onClick={() =>
           addToast({
             title: 'Successfully saved!',
@@ -20,7 +20,7 @@ const ToastDemo = () => {
         Success Toast
       </Button>
       <Button
-        variant="danger"
+        color="danger"
         onClick={() =>
           addToast({
             title: 'Payment failed!',
@@ -32,7 +32,7 @@ const ToastDemo = () => {
         Error Toast
       </Button>
       <Button
-        variant="secondary"
+        color="secondary"
         onClick={() =>
           addToast({
             title: 'System Notice',

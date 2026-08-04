@@ -67,7 +67,7 @@ const LoginFormDemo = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" variant="primary" className="w-full">
+        <Button type="submit" color="primary" fullWidth>
           Sign In
         </Button>
       </form>
