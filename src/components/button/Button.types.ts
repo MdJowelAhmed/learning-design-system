@@ -10,7 +10,7 @@ export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
 
 export interface ButtonProps
   extends
-    ButtonHTMLAttributes<HTMLButtonElement>,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof buttonVariants> {
   /** Render the button's child as the root element via Radix Slot */
   asChild?: boolean;

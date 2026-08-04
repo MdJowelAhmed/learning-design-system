@@ -6,7 +6,10 @@ import type {
   ButtonVariant,
 } from '../button/Button.types';
 
-export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IconButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'color'
+> {
   /** Accessible label — required because there is no visible text */
   'aria-label': string;
   /** The icon to display */
