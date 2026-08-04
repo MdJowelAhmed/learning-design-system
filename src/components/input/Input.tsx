@@ -1,108 +1,211 @@
 'use client';
 
-import { forwardRef, useId } from 'react';
-import { cn } from '../../utils';
-import { inputVariants } from './Input.styles';
+import { forwardRef, useId, useRef, useState } from 'react';
+import { Loader2, X } from 'lucide-react';
+import { cn, mergeRefs } from '../../utils';
+import {
+  FieldCounter,
+  FieldLabel,
+  FieldMessage,
+  FieldRoot,
+} from '../field/Field';
+import {
+  inputBaseVariants,
+  inputSlotVariants,
+  inputWrapperVariants,
+} from './Input.styles';
 import type { InputProps } from './Input.types';
+
+/**
+ * Derives the visual state of the input wrapper.
+ * Priority: disabled/loading → error → warning → success → default.
+ */
+function getWrapperState(
+  props: Pick<
+    InputProps,
+    'disabled' | 'loading' | 'error' | 'warning' | 'success'
+  >,
+) {
+  if (props.disabled || props.loading) return 'disabled';
+  if (props.error) return 'error';
+  if (props.warning) return 'warning';
+  if (props.success) return 'success';
+  return 'default';
+}
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      className,
-      inputSize = 'md',
-      state,
       label,
-      error,
       helperText,
-      leftAdornment,
-      rightAdornment,
+      error,
+      warning,
+      success,
+      required,
       fullWidth = true,
+
+      size = 'md',
+      variant = 'outlined',
+      radius = 'md',
+
+      leftIcon,
+      rightIcon,
+      prefix,
+      suffix,
+
+      loading = false,
+      clearable = false,
+      onClear,
+
       id: customId,
       disabled,
+      maxLength,
+      value,
+      defaultValue,
+      onChange,
+      className,
       ...props
     },
-    ref,
+    forwardedRef,
   ) => {
     const generatedId = useId();
     const id = customId ?? generatedId;
-    const errorId = `${id}-error`;
-    const helperId = `${id}-helper`;
+    const messageId = `${id}-message`;
 
-    const computedState = error ? 'error' : state;
+    const isControlled = value !== undefined;
+
+    // We need a DOM ref to imperatively clear uncontrolled inputs.
+    // mergeRefs combines it with the consumer's forwarded ref.
+    const innerRef = useRef<HTMLInputElement>(null);
+
+    // Track character count to update the counter and clear-button visibility.
+    // We only store the length (a number), never the full string value.
+    // Controlled mode: the length is always derived from the `value` prop directly.
+    const [charCount, setCharCount] = useState(
+      () => String(defaultValue ?? '').length,
+    );
+    const currentLength = isControlled ? String(value ?? '').length : charCount;
+
+    const wrapperState = getWrapperState({
+      disabled,
+      loading,
+      error,
+      warning,
+      success,
+    });
+    const hasMessage = Boolean(error || warning || success || helperText);
+    const showCounter = Boolean(maxLength);
+    const showClearButton =
+      clearable && currentLength > 0 && !disabled && !loading;
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+      if (!isControlled) setCharCount(e.target.value.length);
+      onChange?.(e);
+    }
+
+    function handleClear() {
+      if (!isControlled && innerRef.current) {
+        innerRef.current.value = '';
+        setCharCount(0);
+      }
+      onClear?.();
+    }
+
+    // Right slot priority: loading spinner > clear button > custom right icon.
+    const rightSlot = loading ? (
+      <Loader2
+        className={cn(inputSlotVariants.icon, 'animate-spin')}
+        aria-hidden="true"
+      />
+    ) : showClearButton ? (
+      <button
+        type="button"
+        onClick={handleClear}
+        tabIndex={-1}
+        aria-label="Clear input"
+        className={cn(inputSlotVariants.actionIcon)}
+      >
+        <X />
+      </button>
+    ) : rightIcon ? (
+      <span className={cn(inputSlotVariants.icon)}>{rightIcon}</span>
+    ) : null;
 
     return (
-      <div
-        className={cn('flex flex-col gap-1.5', fullWidth ? 'w-full' : 'w-auto')}
-      >
+      <FieldRoot fullWidth={fullWidth}>
         {label && (
-          <label
-            htmlFor={id}
-            className="text-sm font-medium text-neutral-700 select-none dark:text-neutral-300"
-          >
+          <FieldLabel htmlFor={id} required={required}>
             {label}
-          </label>
+          </FieldLabel>
         )}
 
-        <div className="relative flex w-full items-center">
-          {leftAdornment && (
-            <div className="pointer-events-none absolute left-3 shrink-0 text-neutral-400 dark:text-neutral-500">
-              {leftAdornment}
-            </div>
+        <div
+          className={cn(
+            inputWrapperVariants({
+              variant,
+              size,
+              radius,
+              state: wrapperState,
+            }),
+            className,
+          )}
+        >
+          {prefix && (
+            <span className={cn(inputSlotVariants.prefix)} aria-hidden="true">
+              {prefix}
+            </span>
+          )}
+
+          {leftIcon && (
+            <span className={cn(inputSlotVariants.icon)} aria-hidden="true">
+              {leftIcon}
+            </span>
           )}
 
           <input
-            ref={ref}
+            ref={mergeRefs(innerRef, forwardedRef)}
             id={id}
-            disabled={disabled}
+            disabled={disabled || loading}
+            required={required}
+            maxLength={maxLength}
+            {...(isControlled ? { value } : { defaultValue })}
+            onChange={handleChange}
             aria-invalid={Boolean(error) || undefined}
-            aria-describedby={
-              error ? errorId : helperText ? helperId : undefined
-            }
-            className={cn(
-              inputVariants({ inputSize, state: computedState }),
-              leftAdornment &&
-                (inputSize === 'sm'
-                  ? 'pl-8'
-                  : inputSize === 'lg'
-                    ? 'pl-11'
-                    : 'pl-9'),
-              rightAdornment &&
-                (inputSize === 'sm'
-                  ? 'pr-8'
-                  : inputSize === 'lg'
-                    ? 'pr-11'
-                    : 'pr-9'),
-              className,
-            )}
+            aria-required={required || undefined}
+            aria-disabled={disabled || loading || undefined}
+            aria-describedby={hasMessage ? messageId : undefined}
+            className={cn(inputBaseVariants())}
             {...props}
           />
 
-          {rightAdornment && (
-            <div className="absolute right-3 shrink-0 text-neutral-400 dark:text-neutral-500">
-              {rightAdornment}
-            </div>
+          {rightSlot}
+
+          {suffix && (
+            <span className={cn(inputSlotVariants.suffix)} aria-hidden="true">
+              {suffix}
+            </span>
           )}
         </div>
 
-        {error && (
-          <p
-            id={errorId}
-            role="alert"
-            className="text-xs font-medium text-red-500 dark:text-red-400"
-          >
-            {error}
-          </p>
+        {(hasMessage || showCounter) && (
+          <div className="flex items-start justify-between gap-2">
+            {hasMessage ? (
+              <FieldMessage
+                id={messageId}
+                error={error}
+                warning={warning}
+                success={success}
+                helperText={helperText}
+              />
+            ) : (
+              <span />
+            )}
+            {showCounter && (
+              <FieldCounter current={currentLength} max={maxLength!} />
+            )}
+          </div>
         )}
-
-        {!error && helperText && (
-          <p
-            id={helperId}
-            className="text-xs text-neutral-500 dark:text-neutral-400"
-          >
-            {helperText}
-          </p>
-        )}
-      </div>
+      </FieldRoot>
     );
   },
 );

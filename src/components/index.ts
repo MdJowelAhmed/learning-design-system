@@ -3,7 +3,10 @@
 // ─────────────────────────────────────────────
 
 export * from './button';
+export * from './field';
 export * from './input';
+export * from './password-input';
+export * from './search-input';
 export * from './textarea';
 export * from './select';
 export * from './checkbox';

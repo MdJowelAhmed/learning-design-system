@@ -2,20 +2,26 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import type { VariantProps } from 'class-variance-authority';
 import type { buttonVariants } from './Button.styles';
 
+export type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'link';
+export type ButtonColor =
+  'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'neutral';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
+
 export interface ButtonProps
   extends
     ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  /** If true, the button will render as a Radix Slot child */
+  /** Render the button's child as the root element via Radix Slot */
   asChild?: boolean;
-  /** Whether the button is in a loading state */
+  /** Shows a spinner and prevents interaction */
   loading?: boolean;
-  /** Text to show during loading state */
+  /** Replaces the button label while loading */
   loadingText?: string;
-  /** Icon to render before text */
+  /** Icon rendered before the label */
   leftIcon?: ReactNode;
-  /** Icon to render after text */
+  /** Icon rendered after the label */
   rightIcon?: ReactNode;
-  /** Make button full width */
+  /** Stretches the button to fill its container */
   fullWidth?: boolean;
 }

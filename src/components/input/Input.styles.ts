@@ -1,31 +1,104 @@
 import { cva } from 'class-variance-authority';
 
-export const inputVariants = cva(
-  [
-    'w-full font-sans transition-all duration-200 bg-white dark:bg-neutral-900',
-    'border border-neutral-300 dark:border-neutral-700',
-    'text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500',
-    'focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 dark:focus:border-blue-400',
-    'disabled:bg-neutral-100 dark:disabled:bg-neutral-800 disabled:opacity-60 disabled:cursor-not-allowed',
-  ].join(' '),
+/**
+ * Styles for the outer wrapper `<div>`.
+ *
+ * The wrapper owns the border, background, and focus ring — not the `<input>`
+ * itself. This lets `focus-within` light up the whole field (including icons
+ * and prefix/suffix) when any child receives focus.
+ */
+export const inputWrapperVariants = cva(
+  'relative flex w-full items-center transition-all duration-200 focus-within:ring-2',
   {
     variants: {
-      inputSize: {
-        sm: 'h-8 px-3 text-xs rounded-md',
-        md: 'h-10 px-3.5 text-sm rounded-lg',
-        lg: 'h-12 px-4 text-base rounded-xl',
+      variant: {
+        outlined: [
+          'border bg-white dark:bg-neutral-900',
+          'border-neutral-300 dark:border-neutral-700',
+          'focus-within:border-blue-500 dark:focus-within:border-blue-400 focus-within:ring-blue-500/20',
+        ].join(' '),
+        filled: [
+          'border border-transparent bg-neutral-100 dark:bg-neutral-800',
+          'focus-within:bg-white dark:focus-within:bg-neutral-900',
+          'focus-within:border-blue-500 dark:focus-within:border-blue-400 focus-within:ring-blue-500/20',
+        ].join(' '),
+        ghost: [
+          'border border-transparent bg-transparent',
+          'hover:bg-neutral-50 dark:hover:bg-neutral-800/60',
+          'focus-within:bg-white dark:focus-within:bg-neutral-900',
+          'focus-within:border-blue-500 dark:focus-within:border-blue-400 focus-within:ring-blue-500/20',
+        ].join(' '),
+        underlined: [
+          'rounded-none! border-b border-transparent bg-transparent',
+          'border-b-neutral-300 dark:border-b-neutral-700',
+          'focus-within:border-b-blue-500 dark:focus-within:border-b-blue-400 focus-within:ring-0',
+        ].join(' '),
+      },
+      size: {
+        xs: 'h-7 gap-1.5 px-2.5 text-xs [&_svg]:h-3.5 [&_svg]:w-3.5',
+        sm: 'h-8 gap-2 px-3 text-xs [&_svg]:h-4 [&_svg]:w-4',
+        md: 'h-10 gap-2 px-3.5 text-sm [&_svg]:h-4 [&_svg]:w-4',
+        lg: 'h-12 gap-2.5 px-4 text-base [&_svg]:h-5 [&_svg]:w-5',
+        xl: 'h-14 gap-3 px-5 text-lg [&_svg]:h-5 [&_svg]:w-5',
+      },
+      radius: {
+        none: 'rounded-none',
+        sm: 'rounded',
+        md: 'rounded-lg',
+        lg: 'rounded-xl',
+        full: 'rounded-full',
       },
       state: {
         default: '',
-        error:
-          'border-red-500 dark:border-red-400 focus:border-red-500 focus:ring-red-500/20 dark:focus:border-red-400',
-        success:
-          'border-emerald-500 dark:border-emerald-400 focus:border-emerald-500 focus:ring-emerald-500/20',
+        error: [
+          '!border-red-500 dark:!border-red-400',
+          'focus-within:!ring-red-500/20 focus-within:!border-red-500 dark:focus-within:!border-red-400',
+        ].join(' '),
+        warning: [
+          '!border-amber-500 dark:!border-amber-400',
+          'focus-within:!ring-amber-500/20 focus-within:!border-amber-500 dark:focus-within:!border-amber-400',
+        ].join(' '),
+        success: [
+          '!border-emerald-500 dark:!border-emerald-400',
+          'focus-within:!ring-emerald-500/20 focus-within:!border-emerald-500 dark:focus-within:!border-emerald-400',
+        ].join(' '),
+        disabled:
+          'opacity-60 cursor-not-allowed pointer-events-none bg-neutral-100 dark:bg-neutral-800',
       },
     },
     defaultVariants: {
-      inputSize: 'md',
+      variant: 'outlined',
+      size: 'md',
+      radius: 'md',
       state: 'default',
     },
   },
 );
+
+/**
+ * Styles for the bare `<input>` element.
+ * No border or background — those live on the wrapper above.
+ */
+export const inputBaseVariants = cva(
+  [
+    'flex-1 min-w-0 bg-transparent outline-none border-none font-sans',
+    'text-neutral-900 dark:text-neutral-100',
+    'placeholder:text-neutral-400 dark:placeholder:text-neutral-500',
+    'disabled:cursor-not-allowed',
+    // Suppress browser-native UI chrome for search and number inputs.
+    '[&::-webkit-search-cancel-button]:hidden',
+    '[&::-webkit-outer-spin-button]:appearance-none',
+    '[&::-webkit-inner-spin-button]:appearance-none',
+  ].join(' '),
+);
+
+/** Shared slot styles for icons, prefix text, and suffix text. */
+export const inputSlotVariants = {
+  icon: 'shrink-0 text-neutral-400 dark:text-neutral-500 pointer-events-none',
+  actionIcon:
+    'shrink-0 text-neutral-400 dark:text-neutral-500 cursor-pointer transition-colors duration-150 hover:text-neutral-600 dark:hover:text-neutral-300',
+  prefix:
+    'shrink-0 select-none whitespace-nowrap text-neutral-500 dark:text-neutral-400',
+  suffix:
+    'shrink-0 select-none whitespace-nowrap text-neutral-500 dark:text-neutral-400',
+};

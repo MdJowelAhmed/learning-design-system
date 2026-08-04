@@ -2,17 +2,18 @@
 
 import { forwardRef } from 'react';
 import { Slot } from '@radix-ui/react-slot';
+import { Loader2 } from 'lucide-react';
 import { cn } from '../../utils';
-import { Loader2 } from '../../icons';
 import { buttonVariants } from './Button.styles';
 import type { ButtonProps } from './Button.types';
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      className,
-      variant,
-      size,
+      variant = 'solid',
+      color = 'primary',
+      size = 'md',
+      radius,
       fullWidth,
       asChild = false,
       loading = false,
@@ -22,6 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       children,
       type = 'button',
+      className,
       ...props
     },
     ref,
@@ -35,17 +37,26 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={asChild ? undefined : type}
         disabled={isDisabled}
         aria-busy={loading || undefined}
-        className={cn(buttonVariants({ variant, size, fullWidth, className }))}
+        className={cn(
+          buttonVariants({
+            variant,
+            color,
+            size,
+            radius,
+            fullWidth,
+            className,
+          }),
+        )}
         {...props}
       >
-        {loading ? (
+        {/* When asChild, Slot merges our props onto the child element directly.
+            Wrapping in spans would break the merge, so we pass children as-is. */}
+        {asChild ? (
+          children
+        ) : loading ? (
           <>
             <Loader2 className="shrink-0 animate-spin" aria-hidden="true" />
-            {loadingText ? (
-              <span>{loadingText}</span>
-            ) : (
-              children && <span>{children}</span>
-            )}
+            <span>{loadingText ?? children}</span>
           </>
         ) : (
           <>
@@ -54,12 +65,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {leftIcon}
               </span>
             )}
-            {children &&
-              (typeof children === 'string' || typeof children === 'number' ? (
-                <span>{children}</span>
-              ) : (
-                children
-              ))}
+            {children && <span>{children}</span>}
             {rightIcon && (
               <span className="inline-flex shrink-0 items-center justify-center">
                 {rightIcon}
