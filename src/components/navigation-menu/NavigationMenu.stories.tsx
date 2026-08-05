@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Code2, Layers, Sparkles } from 'lucide-react';
+import { Grid } from '../layout';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,8 +10,9 @@ import {
   NavigationMenuTrigger,
 } from './index';
 
-const meta: Meta = {
+const meta: Meta<typeof NavigationMenu> = {
   title: 'Components/NavigationMenu',
+  component: NavigationMenu,
   parameters: {
     layout: 'centered',
   },
@@ -18,32 +21,79 @@ const meta: Meta = {
 
 export default meta;
 
-export const Default: StoryObj = {
+export const MegaMenu: StoryObj<typeof NavigationMenu> = {
   render: () => (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <div className="grid w-[400px] gap-3 p-4">
-              <NavigationMenuLink className="block rounded-lg p-3 hover:bg-neutral-100 dark:hover:bg-neutral-800">
-                <div className="text-sm font-semibold">Introduction</div>
+            <Grid cols={2} className="w-[500px] gap-3 p-4">
+              <div>
+                <div className="mb-2 px-3 text-xs font-semibold text-neutral-400">
+                  UI COMPONENTS
+                </div>
+                <NavigationMenuLink href="/button">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Layers className="text-primary-500 h-4 w-4" /> Button &
+                    Inputs
+                  </div>
+                  <p className="mt-1 text-xs text-neutral-500">
+                    Accessible form controls and buttons.
+                  </p>
+                </NavigationMenuLink>
+                <NavigationMenuLink href="/card">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Sparkles className="h-4 w-4 text-purple-500" /> Cards &
+                    Containers
+                  </div>
+                  <p className="mt-1 text-xs text-neutral-500">
+                    Compound layout cards and boxes.
+                  </p>
+                </NavigationMenuLink>
+              </div>
+
+              <div>
+                <div className="mb-2 px-3 text-xs font-semibold text-neutral-400">
+                  DEVELOPERS
+                </div>
+                <NavigationMenuLink href="/docs">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Code2 className="h-4 w-4 text-emerald-500" /> Documentation
+                  </div>
+                  <p className="mt-1 text-xs text-neutral-500">
+                    API specifications and guides.
+                  </p>
+                </NavigationMenuLink>
+              </div>
+            </Grid>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <div className="w-[300px] space-y-2 p-4">
+              <NavigationMenuLink href="/enterprise">
+                <div className="font-semibold">Enterprise SaaS</div>
                 <p className="text-xs text-neutral-500">
-                  Re-usable components built using Radix Primitives and Tailwind
-                  CSS.
+                  Scale across multiple teams.
                 </p>
               </NavigationMenuLink>
-              <NavigationMenuLink className="block rounded-lg p-3 hover:bg-neutral-100 dark:hover:bg-neutral-800">
-                <div className="text-sm font-semibold">Installation</div>
+              <NavigationMenuLink href="/startups">
+                <div className="font-semibold">Startups</div>
                 <p className="text-xs text-neutral-500">
-                  How to install dependencies and structure your app.
+                  Move fast with pre-built primitives.
                 </p>
               </NavigationMenuLink>
             </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+          <NavigationMenuLink href="/pricing" active>
+            Pricing
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
