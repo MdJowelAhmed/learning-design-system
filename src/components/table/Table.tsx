@@ -1,116 +1,50 @@
+'use client';
+
 import { forwardRef } from 'react';
+import { Slot } from '@radix-ui/react-slot';
 import { cn } from '../../utils';
-import type {
-  TableProps,
-  TableHeaderProps,
-  TableBodyProps,
-  TableFooterProps,
-  TableRowProps,
-  TableHeadProps,
-  TableCellProps,
-  TableCaptionProps,
-} from './Table.types';
+import { tableVariants } from './Table.styles';
+import type { TableProps } from './Table.types';
 
 export const Table = forwardRef<HTMLTableElement, TableProps>(
-  ({ className, ...props }, ref) => (
-    <div className="relative w-full overflow-auto">
-      <table
+  (
+    {
+      variant = 'default',
+      size = 'md',
+      responsive = true,
+      fullWidth = true,
+      asChild = false,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const Component = asChild ? Slot : 'table';
+
+    const tableElement = (
+      <Component
         ref={ref}
-        className={cn('w-full caption-bottom text-sm', className)}
+        className={cn(
+          tableVariants({ variant, size, className }),
+          !fullWidth && 'w-auto',
+        )}
         {...props}
-      />
-    </div>
-  ),
+      >
+        {children}
+      </Component>
+    );
+
+    if (responsive) {
+      return (
+        <div className="relative w-full overflow-x-auto rounded-xl border border-neutral-200 shadow-xs dark:border-neutral-800">
+          {tableElement}
+        </div>
+      );
+    }
+
+    return tableElement;
+  },
 );
+
 Table.displayName = 'Table';
-
-export const TableHeader = forwardRef<
-  HTMLTableSectionElement,
-  TableHeaderProps
->(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn('[&_tr]:border-b', className)} {...props} />
-));
-TableHeader.displayName = 'TableHeader';
-
-export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
-  ({ className, ...props }, ref) => (
-    <tbody
-      ref={ref}
-      className={cn('[&_tr:last-child]:border-0', className)}
-      {...props}
-    />
-  ),
-);
-TableBody.displayName = 'TableBody';
-
-export const TableFooter = forwardRef<
-  HTMLTableSectionElement,
-  TableFooterProps
->(({ className, ...props }, ref) => (
-  <tfoot
-    ref={ref}
-    className={cn(
-      'border-t bg-neutral-100/50 font-medium dark:bg-neutral-800/50 [&>tr]:last:border-b-0',
-      className,
-    )}
-    {...props}
-  />
-));
-TableFooter.displayName = 'TableFooter';
-
-export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
-  ({ className, ...props }, ref) => (
-    <tr
-      ref={ref}
-      className={cn(
-        'border-b border-neutral-200 transition-colors hover:bg-neutral-100/50 data-[state=selected]:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800/50 dark:data-[state=selected]:bg-neutral-800',
-        className,
-      )}
-      {...props}
-    />
-  ),
-);
-TableRow.displayName = 'TableRow';
-
-export const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(
-  ({ className, ...props }, ref) => (
-    <th
-      ref={ref}
-      className={cn(
-        'h-12 px-4 text-left align-middle font-medium text-neutral-600 dark:text-neutral-300 [&:has([role=checkbox])]:pr-0',
-        className,
-      )}
-      {...props}
-    />
-  ),
-);
-TableHead.displayName = 'TableHead';
-
-export const TableCell = forwardRef<HTMLTableCellElement, TableCellProps>(
-  ({ className, ...props }, ref) => (
-    <td
-      ref={ref}
-      className={cn(
-        'p-4 align-middle text-neutral-800 dark:text-neutral-200 [&:has([role=checkbox])]:pr-0',
-        className,
-      )}
-      {...props}
-    />
-  ),
-);
-TableCell.displayName = 'TableCell';
-
-export const TableCaption = forwardRef<
-  HTMLTableCaptionElement,
-  TableCaptionProps
->(({ className, ...props }, ref) => (
-  <caption
-    ref={ref}
-    className={cn(
-      'mt-4 text-sm text-neutral-500 dark:text-neutral-400',
-      className,
-    )}
-    {...props}
-  />
-));
-TableCaption.displayName = 'TableCaption';
