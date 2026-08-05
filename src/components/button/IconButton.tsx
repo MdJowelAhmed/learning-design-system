@@ -53,7 +53,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         aria-busy={loading || undefined}
         className={cn(
           buttonVariants({ variant, color, size, radius }),
-          squareSizeMap[size],
+          squareSizeMap[size ?? 'md'],
           'shrink-0',
           className,
         )}

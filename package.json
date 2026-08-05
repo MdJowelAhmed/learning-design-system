@@ -197,6 +197,11 @@
       "types": "./dist/typography.d.ts",
       "import": "./dist/typography.mjs",
       "require": "./dist/typography.js"
+    },
+    "./carousel": {
+      "types": "./dist/carousel.d.ts",
+      "import": "./dist/carousel.mjs",
+      "require": "./dist/carousel.js"
     }
   },
   "files": [

@@ -42,6 +42,7 @@ export default defineConfig({
     popover: 'src/components/popover/index.ts',
     'date-picker': 'src/components/date-picker/index.ts',
     typography: 'src/components/typography/index.ts',
+    carousel: 'src/components/carousel/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,
