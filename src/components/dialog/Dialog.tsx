@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { X } from '../../icons';
 import { cn } from '../../utils';
+import { Heading, Text } from '../typography';
 
 export const Dialog = DialogPrimitive.Root;
 export const DialogTrigger = DialogPrimitive.Trigger;
@@ -83,14 +84,15 @@ export const DialogTitle = forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Title
-    ref={ref}
-    className={cn(
-      'text-lg leading-none font-semibold tracking-tight text-neutral-900 dark:text-neutral-50',
-      className,
-    )}
-    {...props}
-  />
+  <Heading
+    asChild
+    level={2}
+    size="lg"
+    weight="semibold"
+    className={cn('leading-none', className)}
+  >
+    <DialogPrimitive.Title ref={ref} {...props} />
+  </Heading>
 ));
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
@@ -98,10 +100,8 @@ export const DialogDescription = forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Description
-    ref={ref}
-    className={cn('text-sm text-neutral-500 dark:text-neutral-400', className)}
-    {...props}
-  />
+  <Text asChild size="sm" color="muted" className={className}>
+    <DialogPrimitive.Description ref={ref} {...props} />
+  </Text>
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;

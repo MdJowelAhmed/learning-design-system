@@ -41,6 +41,7 @@ export default defineConfig({
     pagination: 'src/components/pagination/index.ts',
     popover: 'src/components/popover/index.ts',
     'date-picker': 'src/components/date-picker/index.ts',
+    typography: 'src/components/typography/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

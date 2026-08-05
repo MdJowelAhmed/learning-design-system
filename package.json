@@ -192,6 +192,11 @@
       "types": "./dist/date-picker.d.ts",
       "import": "./dist/date-picker.mjs",
       "require": "./dist/date-picker.js"
+    },
+    "./typography": {
+      "types": "./dist/typography.d.ts",
+      "import": "./dist/typography.mjs",
+      "require": "./dist/typography.js"
     }
   },
   "files": [

@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { X } from '../../icons';
 import { cn } from '../../utils';
+import { Heading, Text } from '../typography';
 import type {
   SheetContentProps,
   SheetHeaderProps,
@@ -88,14 +89,9 @@ export const SheetTitle = forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   SheetTitleProps
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Title
-    ref={ref}
-    className={cn(
-      'text-lg font-semibold text-neutral-900 dark:text-neutral-50',
-      className,
-    )}
-    {...props}
-  />
+  <Heading asChild level={2} size="lg" weight="semibold" className={className}>
+    <DialogPrimitive.Title ref={ref} {...props} />
+  </Heading>
 ));
 SheetTitle.displayName = DialogPrimitive.Title.displayName;
 
@@ -103,10 +99,8 @@ export const SheetDescription = forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   SheetDescriptionProps
 >(({ className, ...props }, ref) => (
-  <DialogPrimitive.Description
-    ref={ref}
-    className={cn('text-sm text-neutral-600 dark:text-neutral-300', className)}
-    {...props}
-  />
+  <Text asChild size="sm" color="muted" className={className}>
+    <DialogPrimitive.Description ref={ref} {...props} />
+  </Text>
 ));
 SheetDescription.displayName = DialogPrimitive.Description.displayName;

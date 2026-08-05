@@ -2,6 +2,7 @@
 // UI Components Exports
 // ─────────────────────────────────────────────
 
+export * from './typography';
 export * from './button';
 export * from './field';
 export * from './input';

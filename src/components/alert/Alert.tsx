@@ -3,6 +3,7 @@
 import { forwardRef } from 'react';
 import { Info, CheckCircle2, AlertTriangle, XCircle, X } from '../../icons';
 import { cn } from '../../utils';
+import { Heading } from '../typography';
 import { alertVariants } from './Alert.styles';
 import type { AlertProps } from './Alert.types';
 
@@ -47,9 +48,14 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
 
         <div className="grid flex-1 gap-1">
           {title && (
-            <h5 className="leading-none font-semibold tracking-tight">
+            <Heading
+              level={5}
+              size="sm"
+              weight="semibold"
+              className="leading-none tracking-tight"
+            >
               {title}
-            </h5>
+            </Heading>
           )}
           {children && (
             <div className="text-sm leading-relaxed opacity-90">{children}</div>

@@ -5,7 +5,18 @@
 // Components & UI Elements
 export * from './components';
 // Explicit re-exports to resolve UI component vs icon collisions
-export { Badge, Table, Sheet, Calendar } from './components';
+export {
+  Badge,
+  Table,
+  Sheet,
+  Calendar,
+  Heading,
+  Text,
+  Label,
+  Link,
+  Code,
+  Blockquote,
+} from './components';
 
 // Design Tokens & System Constants
 export * from './tokens';

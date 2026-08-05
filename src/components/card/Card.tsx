@@ -3,6 +3,8 @@
 import { forwardRef } from 'react';
 import type { HTMLAttributes } from 'react';
 import { cn } from '../../utils';
+import { Heading, Text } from '../typography';
+import type { HeadingProps, TextProps } from '../typography';
 import type { CardProps } from './Card.types';
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
@@ -51,31 +53,25 @@ export const CardHeader = forwardRef<
 ));
 CardHeader.displayName = 'CardHeader';
 
-export const CardTitle = forwardRef<
-  HTMLHeadingElement,
-  HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      'font-heading text-lg leading-none font-semibold text-neutral-900 dark:text-neutral-50',
-      className,
-    )}
-    {...props}
-  />
-));
+export const CardTitle = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ className, ...props }, ref) => (
+    <Heading
+      ref={ref}
+      level={3}
+      size="lg"
+      weight="semibold"
+      className={cn('leading-none', className)}
+      {...props}
+    />
+  ),
+);
 CardTitle.displayName = 'CardTitle';
 
-export const CardDescription = forwardRef<
-  HTMLParagraphElement,
-  HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn('text-sm text-neutral-600 dark:text-neutral-300', className)}
-    {...props}
-  />
-));
+export const CardDescription = forwardRef<HTMLElement, TextProps>(
+  ({ className, ...props }, ref) => (
+    <Text ref={ref} size="sm" color="muted" className={className} {...props} />
+  ),
+);
 CardDescription.displayName = 'CardDescription';
 
 export const CardContent = forwardRef<
