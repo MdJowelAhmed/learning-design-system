@@ -5,9 +5,10 @@ export {
   useIsDesktop,
   usePrefersReducedMotion,
   usePrefersDark,
-  useLocalStorage,
-  useDebounce,
 } from './use-media-query';
+
+export { useLocalStorage } from './use-local-storage';
+export { useDebounce } from './use-debounce';
 
 export {
   useClickOutside,

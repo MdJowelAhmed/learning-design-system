@@ -1,6 +1,6 @@
 // Enterprise Platform Providers Exports
 
-export * from '../theme/ThemeProvider';
+export * from '../theme';
 export * from './ThemeProvider/ThemeToggle';
 export * from './IconProvider/IconProvider';
 export * from './MotionProvider/MotionProvider';
