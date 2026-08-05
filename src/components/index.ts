@@ -42,3 +42,13 @@ export * from './pagination';
 export * from './popover';
 export * from './date-picker';
 export * from './carousel';
+
+// Phase 2 Navigation, Overlays & Layout Exports
+export * from './context-menu';
+export * from './menubar';
+export * from './navigation-menu';
+export * from './collapsible';
+export * from './scroll-area';
+export * from './combobox';
+export * from './command';
+export * from './layout';

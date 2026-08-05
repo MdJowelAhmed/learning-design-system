@@ -16,6 +16,9 @@ export {
   Link,
   Code,
   Blockquote,
+  Command,
+  Container,
+  Grid,
 } from './components';
 
 // Design Tokens & System Constants
