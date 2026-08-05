@@ -247,6 +247,11 @@
       "types": "./dist/providers.d.ts",
       "import": "./dist/providers.mjs",
       "require": "./dist/providers.js"
+    },
+    "./file-uploader": {
+      "types": "./dist/file-uploader.d.ts",
+      "import": "./dist/file-uploader.mjs",
+      "require": "./dist/file-uploader.js"
     }
   },
   "files": [

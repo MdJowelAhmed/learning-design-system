@@ -52,3 +52,4 @@ export * from './scroll-area';
 export * from './combobox';
 export * from './command';
 export * from './layout';
+export * from './file-uploader';

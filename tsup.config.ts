@@ -52,6 +52,7 @@ export default defineConfig({
     command: 'src/components/command/index.ts',
     layout: 'src/components/layout/index.ts',
     providers: 'src/providers/index.ts',
+    'file-uploader': 'src/components/file-uploader/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

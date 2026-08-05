@@ -19,6 +19,7 @@ export {
   Command,
   Container,
   Grid,
+  FileInput,
 } from './components';
 
 // Design Tokens & System Constants
