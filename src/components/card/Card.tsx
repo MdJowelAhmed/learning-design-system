@@ -1,102 +1,78 @@
 'use client';
 
 import { forwardRef } from 'react';
-import type { HTMLAttributes } from 'react';
+import type { KeyboardEvent, MouseEvent } from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { Loader2 } from 'lucide-react';
 import { cn } from '../../utils';
-import { Heading, Text } from '../typography';
-import type { HeadingProps, TextProps } from '../typography';
+import { cardVariants } from './Card.styles';
 import type { CardProps } from './Card.types';
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   (
     {
+      variant = 'default',
+      size = 'md',
+      radius = 'lg',
+      clickable = false,
+      selected = false,
+      loading = false,
+      disabled = false,
+      asChild = false,
       className,
-      hoverable = false,
-      bordered = true,
-      padding = 'md',
+      onClick,
+      onKeyDown,
       children,
       ...props
     },
     ref,
   ) => {
+    const Component = asChild ? Slot : 'div';
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+      if (clickable && !disabled && (e.key === 'Enter' || e.key === ' ')) {
+        if (e.key === ' ') {
+          e.preventDefault(); // prevent page scroll down on Space
+        }
+        onClick?.(e as unknown as MouseEvent<HTMLDivElement>);
+      }
+      onKeyDown?.(e);
+    };
+
     return (
-      <div
+      <Component
         ref={ref}
+        role={clickable ? 'button' : undefined}
+        tabIndex={clickable && !disabled ? 0 : undefined}
+        aria-disabled={disabled || undefined}
+        aria-busy={loading || undefined}
+        onClick={disabled || loading ? undefined : onClick}
+        onKeyDown={handleKeyDown}
         className={cn(
-          'overflow-hidden rounded-2xl bg-white text-neutral-900 shadow-sm transition-all duration-200 dark:bg-neutral-900 dark:text-neutral-50',
-          bordered && 'border border-neutral-200 dark:border-neutral-800',
-          hoverable && 'cursor-pointer hover:-translate-y-0.5 hover:shadow-md',
-          padding === 'sm' && 'p-4',
-          padding === 'md' && 'p-6',
-          padding === 'lg' && 'p-8',
-          padding === 'none' && 'p-0',
-          className,
+          cardVariants({
+            variant,
+            size,
+            radius,
+            clickable,
+            selected,
+            disabled,
+            loading,
+            className,
+          }),
         )}
         {...props}
       >
         {children}
-      </div>
+
+        {loading && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70 backdrop-blur-xs transition-opacity dark:bg-neutral-900/70">
+            <Loader2 className="text-primary-600 dark:text-primary-400 h-6 w-6 animate-spin" />
+            <span className="sr-only">Loading card content</span>
+          </div>
+        )}
+      </Component>
     );
   },
 );
+
 Card.displayName = 'Card';
-
-export const CardHeader = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn('mb-4 flex flex-col gap-1.5', className)}
-    {...props}
-  />
-));
-CardHeader.displayName = 'CardHeader';
-
-export const CardTitle = forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, ...props }, ref) => (
-    <Heading
-      ref={ref}
-      level={3}
-      size="lg"
-      weight="semibold"
-      className={cn('leading-none', className)}
-      {...props}
-    />
-  ),
-);
-CardTitle.displayName = 'CardTitle';
-
-export const CardDescription = forwardRef<HTMLElement, TextProps>(
-  ({ className, ...props }, ref) => (
-    <Text ref={ref} size="sm" color="muted" className={className} {...props} />
-  ),
-);
-CardDescription.displayName = 'CardDescription';
-
-export const CardContent = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn('text-sm text-neutral-800 dark:text-neutral-200', className)}
-    {...props}
-  />
-));
-CardContent.displayName = 'CardContent';
-
-export const CardFooter = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      'mt-6 flex items-center justify-between border-t border-neutral-200 pt-4 dark:border-neutral-800',
-      className,
-    )}
-    {...props}
-  />
-));
-CardFooter.displayName = 'CardFooter';
