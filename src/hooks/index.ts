@@ -20,3 +20,6 @@ export { useDisclosure } from './use-disclosure';
 export { useScrollLock } from './use-scroll-lock';
 export { usePrevious } from './use-previous';
 export { useMounted } from './use-mounted';
+export { useBoolean } from './use-boolean';
+export { useToggle } from './use-toggle';
+export { useWindowSize } from './use-window-size';

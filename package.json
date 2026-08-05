@@ -242,6 +242,11 @@
       "types": "./dist/layout.d.ts",
       "import": "./dist/layout.mjs",
       "require": "./dist/layout.js"
+    },
+    "./providers": {
+      "types": "./dist/providers.d.ts",
+      "import": "./dist/providers.mjs",
+      "require": "./dist/providers.js"
     }
   },
   "files": [

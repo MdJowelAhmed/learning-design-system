@@ -1,0 +1,50 @@
+'use client';
+
+import { forwardRef } from 'react';
+import { Monitor, Moon, Sun } from 'lucide-react';
+import { IconButton } from '../../components/button';
+import { useTheme } from '../../theme';
+import type { IconButtonProps } from '../../components/button';
+
+export interface ThemeToggleProps extends Omit<
+  Partial<IconButtonProps>,
+  'children' | 'aria-label'
+> {
+  'aria-label'?: string;
+}
+
+export const ThemeToggle = forwardRef<HTMLButtonElement, ThemeToggleProps>(
+  (
+    {
+      'aria-label': ariaLabel = 'Toggle theme',
+      variant = 'ghost',
+      size = 'md',
+      ...props
+    },
+    ref,
+  ) => {
+    const { theme, resolvedTheme, toggleTheme } = useTheme();
+
+    return (
+      <IconButton
+        ref={ref}
+        type="button"
+        variant={variant}
+        size={size}
+        aria-label={ariaLabel}
+        onClick={toggleTheme}
+        {...props}
+      >
+        {theme === 'system' ? (
+          <Monitor className="h-4 w-4 transition-transform duration-200" />
+        ) : resolvedTheme === 'dark' ? (
+          <Moon className="h-4 w-4 text-purple-400 transition-transform duration-200" />
+        ) : (
+          <Sun className="h-4 w-4 text-amber-500 transition-transform duration-200" />
+        )}
+      </IconButton>
+    );
+  },
+);
+
+ThemeToggle.displayName = 'ThemeToggle';

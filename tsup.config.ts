@@ -51,6 +51,7 @@ export default defineConfig({
     combobox: 'src/components/combobox/index.ts',
     command: 'src/components/command/index.ts',
     layout: 'src/components/layout/index.ts',
+    providers: 'src/providers/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

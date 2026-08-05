@@ -35,3 +35,8 @@ export * from './icons';
 
 // Utility Functions & Types
 export * from './utils';
+export { formatDate } from './utils';
+
+// Global Platform Providers
+export * from './providers';
+export { Icon } from './providers';
